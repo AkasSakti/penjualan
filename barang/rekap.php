@@ -23,7 +23,22 @@
         INNER JOIN transaksi ON barang.nama_barang = transaksi.nama_barang
         GROUP BY barang.id_barang, barang.nama_barang, barang.harga_barang";
         $result = $conn->query($sql);
-
+        /* right
+        $sql = "SELECT barang.id_barang, barang.nama_barang, barang.harga_barang, 
+        COALESCE(SUM(transaksi.subtotal), 0) AS total 
+        FROM barang 
+        RIGHT JOIN transaksi ON barang.nama_barang = transaksi.nama_barang
+        GROUP BY barang.id_barang, barang.nama_barang, barang.harga_barang";
+         $result = $conn->query($sql);
+        */
+        /* left
+        $sql = "SELECT barang.id_barang, barang.nama_barang, barang.harga_barang, 
+        COALESCE(SUM(transaksi.subtotal), 0) AS total 
+        FROM barang 
+        LEFT JOIN transaksi ON barang.nama_barang = transaksi.nama_barang
+        GROUP BY barang.id_barang, barang.nama_barang, barang.harga_barang";
+        $result = $conn->query($sql);
+        */
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";

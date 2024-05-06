@@ -78,6 +78,7 @@ session_start();
 <br>
 <div align="center">
     <a href="input_barang.php" > &lt;&lt; Kembali Ke Form Utama</a>
+    <a href="rekap.php" > &lt;&lt; Detai Rekap</a>
 </div>
 </body>
 </html>

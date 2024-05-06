@@ -16,7 +16,7 @@
         </tr>
         <?php
         include("../koneksi.php");
-
+        //inner
         $sql = "SELECT barang.id_barang, barang.nama_barang, barang.harga_barang, 
         COALESCE(SUM(transaksi.subtotal), 0) AS total 
         FROM barang 

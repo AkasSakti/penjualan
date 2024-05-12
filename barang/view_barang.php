@@ -5,6 +5,11 @@ session_start();
 <html>
 <head>
     <title>View Detail</title>
+    <script>
+        function confirmDelete() {
+            return confirm("Apakah Anda yakin ingin menghapus data ini?");
+        }
+    </script>
 </head>
 <link rel="stylesheet" href="../style.css">
 <body>
@@ -30,7 +35,7 @@ session_start();
             <th bgcolor="#ffc0cb">Harga Barang</th>
         </tr>
         <?php
-        $results_per_page = 10; // Jumlah hasil per halaman
+        $results_per_page = 10;
 
         if (!isset($_GET['page'])) {
             $page = 1;
@@ -40,7 +45,6 @@ session_start();
 
         $start_from = ($page - 1) * $results_per_page;
 
-        // Pencarian
         if(isset($_POST['search'])) {
             $search = $_POST['search'];
             $query = mysqli_query($conn, "SELECT * FROM barang WHERE nama_barang LIKE '%$search%' ORDER BY id_barang ASC LIMIT $start_from, $results_per_page");
@@ -48,7 +52,6 @@ session_start();
             $query = mysqli_query($conn, "SELECT * FROM barang ORDER BY id_barang ASC LIMIT $start_from, $results_per_page");
         }
 
-        // Pagination
         $total_pages_query = "SELECT COUNT(*) as total FROM barang";
         $result = mysqli_query($conn, $total_pages_query);
         $row = mysqli_fetch_assoc($result);
@@ -63,13 +66,12 @@ session_start();
                     <td><?php echo $data["nama_barang"];?></td>
                     <td><?php echo $data["harga_barang"];?></td>
                     <td><?php echo "<a href='edit_barang.php?id_barang=".$data['id_barang']."'> Edit</a>";?> |
-                        <?php echo "<a href='delete_barang.php?id_barang=".$data['id_barang']."'> Delete</a>";?></td>
+                        <?php echo "<a href='delete_barang.php?id_barang=".$data['id_barang']."' onclick='return confirmDelete();'> Delete</a>";?></td>
                 </tr>
                 <?php $id_barang++; } ?>
         <?php } ?>
     </table>
     <?php
-    // Pagination Links
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='?page=" . $i . "'>" . $i . "</a> ";
     }
@@ -78,7 +80,7 @@ session_start();
 <br>
 <div align="center">
     <a href="input_barang.php" > &lt;&lt; Kembali Ke Form Utama</a>
-    <a href="rekap.php" > &lt;&lt; Detail Rekap</a>
+    <a href="rekap.php" > &lt;&lt; Lihat Rekap</a>
 </div>
 </body>
 </html>
